@@ -109,6 +109,7 @@ class HBNBCommand(Cmd):
                     'create': {'argc': 1, 'argv': ['class']},
                     'destroy': {'argc': 2, 'argv': ['class', 'id',
                                                     'instance']},
+                    'class_attr': {'argc': 1, 'argv': ['class_attr']},
                     'update': {'argc': 4, 'argv': ['class', 'id', 'instance',
                                                    'attribute']},
                     'dotn': {'argc': 1, 'argv': ['class']},
@@ -187,11 +188,47 @@ class HBNBCommand(Cmd):
                 return False
 
             return True
+        
+        def __attribute_ch_n_parse(att_list) -> bool:
+            """Object Attribute validation and parser"""
+            ret = False
+            out =[]
+            for text in att_list:
+                is_attr = re.search(r'\w+=((-?\d+\.?\d?)|(".+"))', text)
+                if is_attr:
+                    attr_val = text.split("=")
+                    if attr_val[0] in dir(eval(toks[0])):
+                        ret = True
+                        attri_type = str
+                        if attr_val[1].isdigit() and "." not in attr_val[1]:
+                            attri_type = int
+                        else:
+                            try:
+                                print(attr_val[1])
+                                float(attr_val[1])
+                                attri_type = float
+                            except ValueError:
+                                pass
+                        if attri_type in (int, float):
+                            attr_val[1] = attri_type(attr_val[1])
+                        else:
+                            attr_val[1] = attr_val[1].replace("_", " ")
+                            attr_val[1] = attr_val[1].strip('"')
+                        
+                        out.append(attr_val)
+            objs.update({"attributes": out})            
+            return ret
+                        
 
-        checks.update({'class': __class_ck, 'id': __id_ck,
+
+
+
+
+        checks.update({'class': __class_ck, 'class_attr': __attribute_ch_n_parse, 'id': __id_ck,
                        'instance': __instance_ck, 'attribute': __attribute_ck,
                        "cmd": __cmd_ck})
         return ([checks[chk] for chk in cmds[cm]['argv']])
+    
 
     def emptyline(self):
         """Do nothing upon receiving an empty args."""
@@ -217,10 +254,17 @@ class HBNBCommand(Cmd):
         class_nm = self.__parser(args)
         chks = self.__console_utility('create', class_nm)
         is_valid_arg = False
+        pre_attri = {}
         for chk in chks:
             is_valid_arg = chk()
         if is_valid_arg:
             obj = eval(class_nm[0])()
+            if len(class_nm) > 1:
+                chk =  self.__console_utility('class_attr', class_nm, pre_attri)
+                is_valid_arg = chk[0](class_nm[1:])
+            if is_valid_arg and len(pre_attri["attributes"]) > 0:
+                for att in pre_attri["attributes"]:
+                    setattr(obj,att[0], att[1])
             obj.save()
             print(obj.id)
 

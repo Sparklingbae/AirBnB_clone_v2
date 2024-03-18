@@ -13,7 +13,7 @@ Command                                             | Example
 Run the console	                                    | `./console.py`
 Quit the console	                                   | `(hbnb) quit`
 Display the help for a command	                     | `(hbnb) help <command>`
-Create an object (prints its id)	                   | `(hbnb) create <class>` or `(hbnb) <class>.create()`
+Create an object (prints its id)	                   | `(hbnb) create <class>` or `(hbnb) <class>.create()` or `create <Class> <param 1> <param 2> ...` where param is -> `<attribute key>=<attribute value>`
 Show an object	                                     | `(hbnb) show <class> <id>` or `(hbnb) <class>.show(<id>)`
 Destroy an object	                                  | `(hbnb) destroy <class> <id>` or `(hbnb) <class>.destroy(<id>)`
 Count all objects or all instances of a class       | `(hbnb) count ` or `(hbnb) count <class> ` or `(hbnb) <class>.count()` or `(hbnb) .count()`
