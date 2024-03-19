@@ -122,6 +122,20 @@ class TestHBNBCommand_create(unittest.TestCase):
             testKey = "Review.{}".format(output.getvalue().strip())
             self.assertIn(testKey, storage.all().keys())
 
+    def test_create_kwargs(self):
+        with patch("sys.stdout", new=StringIO()) as test:
+            HBNBCommand().onecmd('create User first_name="John" \
+                                 email="john@example.com" password="1234"')
+            new_user = test.getvalue().strip()
+        with patch("sys.stdout", new=StringIO()) as test:
+            HBNBCommand().onecmd("all User")
+            user_output = test.getvalue()
+            self.assertIn(new_user, user_output)
+            self.assertIn("\'first_name\': \'John\'", user_output)
+            self.assertIn("\'email\': \'john@example.com\'", user_output)
+            self.assertNotIn("\'last_name\': \'Snow\'", user_output)
+            self.assertIn("\'password\': \'1234\'", user_output)
+
 
 class TestHBNBCommand_show(unittest.TestCase):
     """Unittests for testing show from the HBNB command interpreter"""

@@ -188,11 +188,11 @@ class HBNBCommand(Cmd):
                 return False
 
             return True
-        
-        def __attribute_ch_n_parse(att_list) -> bool:
+
+        def __attr_ch_n_parse(att_list) -> bool:
             """Object Attribute validation and parser"""
             ret = False
-            out =[]
+            out = []
             for text in att_list:
                 is_attr = re.search(r'\w+=((-?\d+\.?\d?)|(".+"))', text)
                 if is_attr:
@@ -204,7 +204,6 @@ class HBNBCommand(Cmd):
                             attri_type = int
                         else:
                             try:
-                                print(attr_val[1])
                                 float(attr_val[1])
                                 attri_type = float
                             except ValueError:
@@ -212,23 +211,19 @@ class HBNBCommand(Cmd):
                         if attri_type in (int, float):
                             attr_val[1] = attri_type(attr_val[1])
                         else:
+
                             attr_val[1] = attr_val[1].replace("_", " ")
                             attr_val[1] = attr_val[1].strip('"')
-                        
+                            attr_val[1] = attr_val[1].strip("'\\")
+
                         out.append(attr_val)
-            objs.update({"attributes": out})            
+            objs.update({"attributes": out})
             return ret
-                        
 
-
-
-
-
-        checks.update({'class': __class_ck, 'class_attr': __attribute_ch_n_parse, 'id': __id_ck,
-                       'instance': __instance_ck, 'attribute': __attribute_ck,
-                       "cmd": __cmd_ck})
+        checks.update({'class': __class_ck, 'class_attr': __attr_ch_n_parse,
+                       'id': __id_ck, 'instance': __instance_ck,
+                       'attribute': __attribute_ck, "cmd": __cmd_ck})
         return ([checks[chk] for chk in cmds[cm]['argv']])
-    
 
     def emptyline(self):
         """Do nothing upon receiving an empty args."""
@@ -260,11 +255,12 @@ class HBNBCommand(Cmd):
         if is_valid_arg:
             obj = eval(class_nm[0])()
             if len(class_nm) > 1:
-                chk =  self.__console_utility('class_attr', class_nm, pre_attri)
+                chk = self.__console_utility('class_attr',
+                                             class_nm, pre_attri)
                 is_valid_arg = chk[0](class_nm[1:])
-            if is_valid_arg and len(pre_attri["attributes"]) > 0:
+            if "attributes" in pre_attri:
                 for att in pre_attri["attributes"]:
-                    setattr(obj,att[0], att[1])
+                    setattr(obj, att[0], att[1])
             obj.save()
             print(obj.id)
 
