@@ -3,7 +3,7 @@ AirBnB clone
 ![**AirBnB**](https://github.com/HucksApp/AirBnB_clone/assets/58187974/0a2d1bfa-9390-4515-aacc-b2eaf190788a)
 
 ### Description ##
-This team project is part of the ALX School Full-Stack Software Engineer program. It's the first step towards building a first full web application: an AirBnB clone. This first step consists of a custom command-line interface for data management, and the base classes for the storage of this data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
+This team project is part of the ALX School Full-Stack Software Engineer program. It's the second step towards building a full web application: an AirBnB clone.
 
 
 ## The console 🎛
@@ -24,6 +24,7 @@ sample
 $ HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
 ```
 
+----------------------------------------------------
 ### Usage ###
 The console works both in interactive mode and non-interactive mode, much like a Unix shell. It prints a prompt **(hbnb)** and waits for the user for input.
 
@@ -53,6 +54,7 @@ $ echo "help" | ./console.py
   (hbnb)
 ```
 
+----------------------------------------------------------------------
 ## Models (Data Classes) 🏺 🆑
 The folder models contains all the classes used.
 
@@ -68,6 +70,7 @@ state.py    	         | **State** class for future location information	        
 place.py    	         | **Place** class for future accomodation information	    | *city_id*, *user_id*, *name*, *description*, *number_rooms*, *number_bathrooms*, *max_guest*,   *price_by_night*, *latitude*, *longitude*, *amenity_ids*.
 review.py   	        | **Review** class for future user/host review information	| *place_id*, *user_id*, *text*.
 
+----------------------------------------------------------------
 # Storage 🛄
 The above classes are handled by one of either two abstracted storage engines, depending on the call - ***FileStorage*** or ***DBStorage***.
 
@@ -88,7 +91,7 @@ In DBStorage mode, every time the backend is initialized, HolbertonBnB instantia
 This repository includes scripts *setup_mysql_dev.sql* and *setup_mysql_test.sql* to set up *hbnb_dev_db* and *hbnb_test_db* databases in a MySQL server, respectively.
 
 
-
+---------------------------------------------------------------------
 
 ## Tests 🧑🏿‍🔬️ 🧪
 Unittests for the HolbertonBnB project are defined in the [tests folder](./tests).
