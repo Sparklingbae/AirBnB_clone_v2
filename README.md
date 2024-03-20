@@ -60,15 +60,15 @@ The folder models contains all the classes used.
 
 ### File	Description	Attributes 📊
 
-File                                            | Description                                             | Atrributes
-------------------------------------------------|---------------------------------------------------------|---------------------------------------
-[base_model.py](./models/base_model.py)         |	**BaseModel** Base Class for all other model 	          | *id*, *created_at*, *updated_at*
-[user.py](./models/user.py)                     | **User** class for user information	                    | *email*, *password*, *first_name*, *last_name*
-[amenity.py](./models/amenity.py)	              | **Amenity** class for amenity information	              | *name*.
-[city.py](./models/city.py)	                    | **City** class for location information	                | *state_id*, *name*.
-[state.py](./models/state.py)         	         | **State** class for location information	               | *name*.
-[place.py](./models/place.py)    	              | **Place** class for accomodation information	           | *city_id*, *user_id*, *name*, *description*, *number_rooms*, *number_bathrooms*, *max_guest*,   *price_by_night*, *latitude*, *longitude*, *amenity_ids*.
-[review.py](./models/review.py)   	             | **Review** class for user/host review information      	| *place_id*, *user_id*, *text*.
+File                                            | Description                                               | Atrributes
+------------------------------------------------|-----------------------------------------------------------|---------------------------------------
+[base_model.py](./models/base_model.py)         |	***BaseModel*** Base Class for all other model 	          | *id*, *created_at*, *updated_at*
+[user.py](./models/user.py)                     | ***User*** class for user information	                    | *email*, *password*, *first_name*, *last_name*
+[amenity.py](./models/amenity.py)	              | ***Amenity*** class for amenity information	              | *name*.
+[city.py](./models/city.py)	                    | ***City*** class for location information	                | *state_id*, *name*.
+[state.py](./models/state.py)         	         | ***State*** class for location information	               | *name*.
+[place.py](./models/place.py)    	              | ***Place*** class for accomodation information	           | *city_id*, *user_id*, *name*, *description*, *number_rooms*, *number_bathrooms*, *max_guest*,   *price_by_night*, *latitude*, *longitude*, *amenity_ids*.
+[review.py](./models/review.py)   	             | ***Review*** class for user/host review information      	| *place_id*, *user_id*, *text*.
 
 ----------------------------------------------------------------
 # Storage 🛄
