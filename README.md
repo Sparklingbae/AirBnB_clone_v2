@@ -105,9 +105,9 @@ Alternatively, you can specify a single test file to run at a time:
 $ python3 unittest -m tests/<test_file>
 ```
 
-## Authors
-__Abiodun Aremu__ ~ HucksApp@gmail.com : 🖋
+## Authors 🖋
+__Abiodun Aremu__ ~ HucksApp@gmail.com : 
 
-__Blessing Asuquo__ ~ sparklingasuquo4142@gmail.com : 🖋
+__Blessing Asuquo__ ~ sparklingasuquo4142@gmail.com : 
 
 
