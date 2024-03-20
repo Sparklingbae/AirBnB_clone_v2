@@ -4,10 +4,19 @@
 from uuid import uuid4
 from datetime import datetime
 import models
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, DateTime
+
+
+Base = declarative_base()
 
 
 class BaseModel:
     """Represents the BaseModel of the HBnB project."""
+
+    id = Column(String(60), primary_key=True, nullable=False)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs) -> None:
         """Initialize a new BaseModel.
@@ -23,10 +32,6 @@ class BaseModel:
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 if key != "__class__":
                     setattr(self, key, value)
-        else:
-            key = f"{self.__class__.__name__}.{self.id}"
-            if key not in [*models.storage.all()]:
-                models.storage.new(self)
 
     def __str__(self) -> str:
         """Return the print/str representation of the BaseModel instance."""
@@ -36,6 +41,9 @@ class BaseModel:
         """Update updated_at with the current datetime."""
 
         self.updated_at = datetime.utcnow()
+        key = f"{self.__class__.__name__}.{self.id}"
+        if key not in [*models.storage.all()]:
+            models.storage.new(self)
         models.storage.save()
 
     def to_dict(self) -> dict:
@@ -46,4 +54,9 @@ class BaseModel:
         ret = {'__class__': self.__class__.__name__, **self.__dict__}
         ret["created_at"] = self.created_at.isoformat()
         ret["updated_at"] = self.updated_at.isoformat()
+        ret.pop("_sa_instance_state", None)
         return ret
+
+    def delete(self):
+        """Delete the current instance from storage."""
+        models.storage.delete(self)
