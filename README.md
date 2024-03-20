@@ -54,7 +54,7 @@ $ echo "help" | ./console.py
   (hbnb)
 ```
 
-**interactive mode example**
+**Interactive mode example**
 ```
 $ ./console.py
 (hbnb) create User
