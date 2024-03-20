@@ -60,15 +60,15 @@ The folder models contains all the classes used.
 
 ### File	Description	Attributes 📊
 
-File                  | Description                                             | Atrributes
-----------------------|---------------------------------------------------------|---------------------------------------
-base_model.py         |	**BaseModel** class for all the other classes	          | *id*, *created_at*, *updated_at*
-user.py               | **User** class for future user information	             | *email*, *password*, *first_name*, *last_name*
-amenity.py	           | **Amenity** class for future amenity information	       | *name*.
-city.py	              | **City** class for future location information	         | *state_id*, *name*.
-state.py    	         | **State** class for future location information	        | *name*.
-place.py    	         | **Place** class for future accomodation information	    | *city_id*, *user_id*, *name*, *description*, *number_rooms*, *number_bathrooms*, *max_guest*,   *price_by_night*, *latitude*, *longitude*, *amenity_ids*.
-review.py   	        | **Review** class for future user/host review information	| *place_id*, *user_id*, *text*.
+File                                            | Description                                             | Atrributes
+------------------------------------------------|---------------------------------------------------------|---------------------------------------
+[base_model.py](./models/base_model.py)         |	**BaseModel** class for all the other classes	          | *id*, *created_at*, *updated_at*
+[user.py](./models/user.py)                     | **User** class for future user information	             | *email*, *password*, *first_name*, *last_name*
+[amenity.py](./models/amenity.py)	              | **Amenity** class for future amenity information	       | *name*.
+[city.py](./models/city.py)	                    | **City** class for future location information	         | *state_id*, *name*.
+[state.py](./models/state.py)         	         | **State** class for future location information	        | *name*.
+[place.py](./models/place.py)    	              | **Place** class for future accomodation information	    | *city_id*, *user_id*, *name*, *description*, *number_rooms*, *number_bathrooms*, *max_guest*,   *price_by_night*, *latitude*, *longitude*, *amenity_ids*.
+[review.py](./models/review.py)   	             | **Review** class for future user/host review information	| *place_id*, *user_id*, *text*.
 
 ----------------------------------------------------------------
 # Storage 🛄
