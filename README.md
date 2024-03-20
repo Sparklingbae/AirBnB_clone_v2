@@ -66,7 +66,7 @@ place.py    	         | **Place** class for future accomodation information	    
 review.py   	        | **Review** class for future user/host review information	| *place_id*, *user_id*, *text*.
 
 # Storage 🛄
-The above classes are handled by one of either two abstracted storage engines, depending on the call - FileStorage or DBStorage.
+The above classes are handled by one of either two abstracted storage engines, depending on the call - ***FileStorage*** or ***DBStorage***.
 
 ## File storage 📄 🗃
 The folder engine manages the serialization and deserialization of all the data, following a JSON format.
