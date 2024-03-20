@@ -80,7 +80,7 @@ A ***FileStorage*** class is defined in *file_storage.py* with methods to follow
 In FileStorage mode, every time the backend is initialized, HolbertonBnB instantiates an instance of FileStorage called storage. The storage object is loaded/re-loaded from any class instances stored in the JSON file file.json. As class instances are created, updated, or deleted, the storage object is used to register corresponding changes in the *file.json*.
 
 
-DBStorage 🤖🛢️
+## DBStorage 🤖🛢️
 Run by setting the environmental variable `HBNB_TYPE_STORAGE=db`
 
 In DBStorage mode, every time the backend is initialized, HolbertonBnB instantiates an instance of DBStorage called storage. The storage object is loaded/re-loaded from the MySQL database specified in the environmental variable HBNB_MYSQL_DB, using the user `HBNB_MYSQL_USER`, password `HBNB_MYSQL_PW`D, and host `HBNB_MYSQL_HOST`. As class instances are created, updated, or deleted, the storage object is used to register changes in the corresponding MySQL database. Connection and querying is achieved using ***SQLAlchemy***.
