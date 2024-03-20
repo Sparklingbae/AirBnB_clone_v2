@@ -99,7 +99,7 @@ A ***FileStorage*** class is defined in [file_storage.py](./models/engine/file_s
 In FileStorage mode, every time the backend is initialized, HolbertonBnB instantiates an instance of FileStorage called storage. The storage object is loaded/re-loaded from any class instances stored in the JSON file file.json. As class instances are created, updated, or deleted, the storage object is used to register corresponding changes in the *file.json*.
 
 
-## DBStorage 🤖🛢️
+## Database Storage 🤖🛢️
 This storage mode is a storage class define by [db_storage.py](./models/engine/db_storage.py)
 
 Run by setting the environmental variable `HBNB_TYPE_STORAGE=db`
