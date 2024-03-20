@@ -84,7 +84,7 @@ In FileStorage mode, every time the backend is initialized, HolbertonBnB instant
 
 
 ## DBStorage 🤖🛢️
-This storage mode is storage class define by [db_storage.py](./models/engine/db_storage.py)
+This storage mode is a storage class define by [db_storage.py](./models/engine/db_storage.py)
 
 Run by setting the environmental variable `HBNB_TYPE_STORAGE=db`
 
