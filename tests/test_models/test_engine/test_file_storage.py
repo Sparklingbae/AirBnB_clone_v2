@@ -63,7 +63,6 @@ class TestFileStorage_methods(unittest.TestCase):
             pass
         FileStorage._FileStorage__objects = {}
 
-
     def test_FileStorage_method_errorDataTypeA(self):
         with self.assertRaises(TypeError):
             models.storage.all(None)
@@ -73,15 +72,14 @@ class TestFileStorage_methods(unittest.TestCase):
     def test_FileStorage_method_errorDataTypeB(self):
         with self.assertRaises(AttributeError):
             models.storage.new(None)
-            
+
     def test_reload_with_arg(self):
         with self.assertRaises(TypeError):
             models.storage.reload(None)
 
-   
     def test_reload(self):
-        test_obj =[]
-        for x in  self.classes:
+        test_obj = []
+        for x in self.classes:
             obj = x()
             models.storage.new(obj)
             test_obj.append(obj)
@@ -90,13 +88,13 @@ class TestFileStorage_methods(unittest.TestCase):
         objs = FileStorage._FileStorage__objects
         for obj in test_obj:
             self.assertIn(f'{obj.__class__.__name__}.' + obj.id, objs)
-    
+
     def test_all(self):
         self.assertEqual(dict, type(models.storage.all()))
 
     def test_save(self):
-        test_obj =[]
-        for x in  self.classes:
+        test_obj = []
+        for x in self.classes:
             obj = x()
             models.storage.new(obj)
             test_obj.append(obj)
@@ -107,12 +105,12 @@ class TestFileStorage_methods(unittest.TestCase):
         for obj in test_obj:
             self.assertIn(f'{obj.__class__.__name__}.' + obj.id,  save_objs)
 
-
     def test_new(self):
-        for x in  self.classes:
+        for x in self.classes:
             obj = x()
             models.storage.new(obj)
-            self.assertIn(f'{obj.__class__.__name__}.' + obj.id, models.storage.all().keys())
+            self.assertIn(f'{obj.__class__.__name__}.' + obj.id,
+                          models.storage.all().keys())
             self.assertIn(obj, models.storage.all().values())
 
 
