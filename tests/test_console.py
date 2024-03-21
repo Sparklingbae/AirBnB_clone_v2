@@ -1158,7 +1158,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd = "update Place {} max_guest 98".format(testId)
         self.assertFalse(HBNBCommand().onecmd(testCmd))
         test_dict = storage.all()["Place.{}".format(testId)].__dict__
-        self.assertEqual(98, test_dict["max_guest"])
+        self.assertEqual('98', test_dict["max_guest"])
 
     @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_int_attr_dot_notation(self):
@@ -1168,7 +1168,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd = "Place.update({}, max_guest, 98)".format(tId)
         self.assertFalse(HBNBCommand().onecmd(testCmd))
         test_dict = storage.all()["Place.{}".format(tId)].__dict__
-        self.assertEqual(98, test_dict["max_guest"])
+        self.assertEqual('98', test_dict["max_guest"])
 
     @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_float_attr_space_notation(self):
@@ -1178,7 +1178,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd = "update Place {} latitude 7.2".format(testId)
         self.assertFalse(HBNBCommand().onecmd(testCmd))
         test_dict = storage.all()["Place.{}".format(testId)].__dict__
-        self.assertEqual(7.2, test_dict["latitude"])
+        self.assertEqual('7.2', test_dict["latitude"])
 
     @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_float_attr_dot_notation(self):
@@ -1188,7 +1188,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd = "Place.update({}, latitude, 7.2)".format(tId)
         self.assertFalse(HBNBCommand().onecmd(testCmd))
         test_dict = storage.all()["Place.{}".format(tId)].__dict__
-        self.assertEqual(7.2, test_dict["latitude"])
+        self.assertEqual('7.2', test_dict["latitude"])
 
     @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_dictionary_dot_notation(self):
@@ -1264,7 +1264,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd += "{'max_guest': 98})"
         HBNBCommand().onecmd(testCmd)
         test_dict = storage.all()["Place.{}".format(testId)].__dict__
-        self.assertEqual(98, test_dict["max_guest"])
+        self.assertEqual('98', test_dict["max_guest"])
 
     @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_dictionary_with_float_dot_notation(self):
@@ -1275,7 +1275,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd += "{'latitude': 9.8})"
         HBNBCommand().onecmd(testCmd)
         test_dict = storage.all()["Place.{}".format(testId)].__dict__
-        self.assertEqual(9.8, test_dict["latitude"])
+        self.assertEqual('9.8', test_dict["latitude"])
 
 
 class TestHBNBCommand_count(unittest.TestCase):
