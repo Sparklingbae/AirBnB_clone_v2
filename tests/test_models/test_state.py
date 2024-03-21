@@ -27,14 +27,13 @@ class TestState_dataModel(unittest.TestCase):
         self.assertEqual(datetime, type(State().created_at))
         self.assertEqual(datetime, type(State().updated_at))
         self.assertEqual(str, type(State.name))
-       
 
     def test_created_at(self):
         obj1 = State()
         sleep(0.05)
         obj2 = State()
         self.assertLess(obj1.created_at, obj2.created_at)
-    
+
     def test_updated_at(self):
         obj1 = State()
         upd1 = obj1.updated_at
@@ -43,11 +42,11 @@ class TestState_dataModel(unittest.TestCase):
         obj1.save()
         upd2 = obj1.updated_at
         self.assertLess(upd1, upd2)
-    
+
     def test_str_representation(self):
         dt = datetime.today()
         dt_repr = repr(dt)
-        obj =State()
+        obj = State()
         obj.id = "a9957-165a-49ea-966f-a0de45"
         obj.created_at = obj.updated_at = dt
         objstr = obj.__str__()
@@ -64,7 +63,8 @@ class TestState_dataModel(unittest.TestCase):
         self.assertEqual(obj.id, idd)
         self.assertEqual(obj.created_at, dt)
         self.assertEqual(obj.updated_at, dt)
-    
+
+
 class TestState_save(unittest.TestCase):
     """Unittests for testing save method of the State class."""
 
@@ -108,7 +108,6 @@ class TestState_save(unittest.TestCase):
         bmid = "State." + obj.id
         with open("file.json", "r") as f:
             self.assertIn(bmid, f.read())
-    
 
 
 class TestState_to_dict(unittest.TestCase):
@@ -151,7 +150,6 @@ class TestState_to_dict(unittest.TestCase):
         }
         self.assertDictEqual(obj.to_dict(), tdict)
 
-    
     def test_to_dict_with_error_arg(self):
         obj = State()
         with self.assertRaises(TypeError):

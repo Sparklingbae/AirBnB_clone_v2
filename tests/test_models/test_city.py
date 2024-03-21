@@ -28,14 +28,13 @@ class TestCity_dataModel(unittest.TestCase):
         self.assertEqual(datetime, type(City().updated_at))
         self.assertEqual(str, type(City.state_id))
         self.assertEqual(str, type(City.name))
-       
 
     def test_created_at(self):
         obj1 = City()
         sleep(0.05)
         obj2 = City()
         self.assertLess(obj1.created_at, obj2.created_at)
-    
+
     def test_updated_at(self):
         obj1 = City()
         upd1 = obj1.updated_at
@@ -44,11 +43,11 @@ class TestCity_dataModel(unittest.TestCase):
         obj1.save()
         upd2 = obj1.updated_at
         self.assertLess(upd1, upd2)
-    
+
     def test_str_representation(self):
         dt = datetime.today()
         dt_repr = repr(dt)
-        obj =City()
+        obj = City()
         obj.id = "a9957-165a-49ea-966f-a0de45"
         obj.created_at = obj.updated_at = dt
         objstr = obj.__str__()
@@ -65,7 +64,8 @@ class TestCity_dataModel(unittest.TestCase):
         self.assertEqual(obj.id, idd)
         self.assertEqual(obj.created_at, dt)
         self.assertEqual(obj.updated_at, dt)
-    
+
+
 class TestCity_save(unittest.TestCase):
     """Unittests for testing save method of the City class."""
 
@@ -109,7 +109,6 @@ class TestCity_save(unittest.TestCase):
         bmid = "City." + obj.id
         with open("file.json", "r") as f:
             self.assertIn(bmid, f.read())
-    
 
 
 class TestCity_to_dict(unittest.TestCase):
@@ -152,7 +151,6 @@ class TestCity_to_dict(unittest.TestCase):
         }
         self.assertDictEqual(obj.to_dict(), tdict)
 
-    
     def test_to_dict_with_error_arg(self):
         obj = City()
         with self.assertRaises(TypeError):

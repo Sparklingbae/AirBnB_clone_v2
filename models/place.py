@@ -2,7 +2,7 @@
 """This is the place class"""
 
 from models.base_model import BaseModel, Base
-from models.amenity import  Amenity
+from models.amenity import Amenity
 from sqlalchemy import Column, Table, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from os import getenv
