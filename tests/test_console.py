@@ -128,8 +128,8 @@ class TestHBNBCommand_create(unittest.TestCase):
     @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_create_kwargs(self):
         with patch("sys.stdout", new=StringIO()) as test:
-            HBNBCommand().onecmd('create User first_name="John" \
-                                 email="john@example.com" password="1234"')
+            HBNBCommand().onecmd('''create User first_name="John" 
+                                 email="john@example.com" password="1234"''')
             new_user = test.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as test:
             HBNBCommand().onecmd("all User")
