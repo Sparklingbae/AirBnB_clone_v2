@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This is the place class"""
 
+import shlex
 from models.base_model import BaseModel, Base
 from models.amenity import Amenity
 from sqlalchemy import Column, Table, String, Integer, Float, ForeignKey
