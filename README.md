@@ -29,7 +29,7 @@ $ HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost
 The console works both in interactive mode and non-interactive mode, much like a Unix shell. It prints a prompt **(hbnb)** and waits for the user for input.
 
 
-Command                                             | Example
+Description                                         | Command
 ----------------------------------------------------|--------------------
 Run the console	                                    | `./console.py`
 Quit the console	                                   | `(hbnb) quit`
