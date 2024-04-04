@@ -1,6 +1,6 @@
 AirBnB clone
 ======================================
-![**AirBnB**](https://github.com/HucksApp/AirBnB_clone/assets/58187974/0a2d1bfa-9390-4515-aacc-b2eaf190788a)
+![**AirBnB**](https://github.com/HucksApp/AirBnB_clone_v2/assets/58187974/bc1d8c45-030e-47a0-8993-e4eaeeb00785)
 
 ### Description ##
 This team project is part of the ALX School Full-Stack Software Engineer program. It's the second step towards building a full web application: an AirBnB clone.
