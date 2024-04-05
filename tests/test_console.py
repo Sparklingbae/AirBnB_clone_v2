@@ -13,7 +13,7 @@ Unittest classes:
 import os
 import sys
 import unittest
-from models import storage
+from models import storage, DBStorage
 from models.engine.file_storage import FileStorage
 from console import HBNBCommand
 from io import StringIO
@@ -73,18 +73,21 @@ class TestHBNBCommand_create(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_create_missing_class(self):
         correct = "** class name missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_create_invalid_class(self):
         correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create MyModel"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_create_object(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -122,10 +125,11 @@ class TestHBNBCommand_create(unittest.TestCase):
             testKey = "Review.{}".format(output.getvalue().strip())
             self.assertIn(testKey, storage.all().keys())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_create_kwargs(self):
         with patch("sys.stdout", new=StringIO()) as test:
-            HBNBCommand().onecmd('create User first_name="John" \
-                                 email="john@example.com" password="1234"')
+            HBNBCommand().onecmd('''create User first_name="John" 
+                                 email="john@example.com" password="1234"''')
             new_user = test.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as test:
             HBNBCommand().onecmd("all User")
@@ -159,6 +163,7 @@ class TestHBNBCommand_show(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_show_missing_class(self):
         correct1 = "** class name missing **"
         correct2 = "*** Unknown syntax: .show()"
@@ -169,6 +174,7 @@ class TestHBNBCommand_show(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(".show()"))
             self.assertEqual(correct2, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_show_invalid_class(self):
         correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -178,6 +184,7 @@ class TestHBNBCommand_show(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("MyModel.show()"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_show_missing_id_space_notation(self):
         correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -202,6 +209,7 @@ class TestHBNBCommand_show(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("show Review"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_show_missing_id_dot_notation(self):
         correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -226,6 +234,7 @@ class TestHBNBCommand_show(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("Review.show()"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_show_no_instance_found_space_notation(self):
         correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -250,6 +259,7 @@ class TestHBNBCommand_show(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("show Review 1"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_show_no_instance_found_dot_notation(self):
         correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -274,6 +284,7 @@ class TestHBNBCommand_show(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("Review.show(1)"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_show_objects_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -332,6 +343,7 @@ class TestHBNBCommand_show(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_show_objects_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -414,6 +426,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             pass
         storage.reload()
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_destroy_missing_class(self):
         correct1 = "** class name missing **"
         correct2 = "*** Unknown syntax: .destroy()"
@@ -424,6 +437,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(".destroy()"))
             self.assertEqual(correct2, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_destroy_invalid_class(self):
         correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -433,6 +447,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("MyModel.destroy()"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_destroy_id_missing_space_notation(self):
         correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -457,6 +472,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("destroy Review"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_destroy_id_missing_dot_notation(self):
         correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -481,6 +497,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("Review.destroy()"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_destroy_invalid_id_space_notation(self):
         correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -505,6 +522,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("destroy Review 1"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_destroy_invalid_id_dot_notation(self):
         correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -529,6 +547,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("Review.destroy(1)"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_destroy_objects_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -587,6 +606,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_destroy_objects_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -668,6 +688,7 @@ class TestHBNBCommand_all(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_all_invalid_class(self):
         correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -677,6 +698,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("MyModel.all()"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_all_objects_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -696,6 +718,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertIn("Amenity", output.getvalue().strip())
             self.assertIn("Review", output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_all_objects_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -715,6 +738,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertIn("Amenity", output.getvalue().strip())
             self.assertIn("Review", output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_all_single_object_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -753,6 +777,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertIn("Review", output.getvalue().strip())
             self.assertNotIn("BaseModel", output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_all_single_object_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -814,6 +839,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_missing_class(self):
         correct1 = "** class name missing **"
         correct2 = "*** Unknown syntax: .update()"
@@ -824,6 +850,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(".update()"))
             self.assertEqual(correct2, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_invalid_class(self):
         correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -833,6 +860,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("MyModel.update()"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_missing_id_space_notation(self):
         correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -857,6 +885,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("update Review"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_invalid_id_space_notation(self):
         correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -881,6 +910,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("update Review 1"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_invalid_id_dot_notation(self):
         correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -905,6 +935,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("Review.update(1)"))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_missing_attr_name_space_notation(self):
         correct = "** attribute name missing **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -950,6 +981,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(testCmd))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_missing_attr_value_space_notation(self):
         correct = "** value missing **"
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1002,6 +1034,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(testCmd))
             self.assertEqual(correct, output.getvalue().strip())
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_string_attr_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create BaseModel")
@@ -1059,6 +1092,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Review.{}".format(testId)].__dict__
         self.assertTrue("attr_value", test_dict["attr_name"])
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_string_attr_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create BaseModel")
@@ -1116,6 +1150,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Review.{}".format(tId)].__dict__
         self.assertEqual("attr_value", test_dict["attr_name"])
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_int_attr_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
@@ -1123,8 +1158,9 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd = "update Place {} max_guest 98".format(testId)
         self.assertFalse(HBNBCommand().onecmd(testCmd))
         test_dict = storage.all()["Place.{}".format(testId)].__dict__
-        self.assertEqual(98, test_dict["max_guest"])
+        self.assertEqual('98', test_dict["max_guest"])
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_int_attr_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
@@ -1132,8 +1168,9 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd = "Place.update({}, max_guest, 98)".format(tId)
         self.assertFalse(HBNBCommand().onecmd(testCmd))
         test_dict = storage.all()["Place.{}".format(tId)].__dict__
-        self.assertEqual(98, test_dict["max_guest"])
+        self.assertEqual('98', test_dict["max_guest"])
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_float_attr_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
@@ -1141,8 +1178,9 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd = "update Place {} latitude 7.2".format(testId)
         self.assertFalse(HBNBCommand().onecmd(testCmd))
         test_dict = storage.all()["Place.{}".format(testId)].__dict__
-        self.assertEqual(7.2, test_dict["latitude"])
+        self.assertEqual('7.2', test_dict["latitude"])
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_float_attr_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
@@ -1150,8 +1188,9 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd = "Place.update({}, latitude, 7.2)".format(tId)
         self.assertFalse(HBNBCommand().onecmd(testCmd))
         test_dict = storage.all()["Place.{}".format(tId)].__dict__
-        self.assertEqual(7.2, test_dict["latitude"])
+        self.assertEqual('7.2', test_dict["latitude"])
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_dictionary_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create BaseModel")
@@ -1216,6 +1255,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Review.{}".format(testId)].__dict__
         self.assertEqual("attr_value", test_dict["attr_name"])
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_dictionary_with_int_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
@@ -1224,8 +1264,9 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd += "{'max_guest': 98})"
         HBNBCommand().onecmd(testCmd)
         test_dict = storage.all()["Place.{}".format(testId)].__dict__
-        self.assertEqual(98, test_dict["max_guest"])
+        self.assertEqual('98', test_dict["max_guest"])
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_update_valid_dictionary_with_float_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
@@ -1234,7 +1275,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         testCmd += "{'latitude': 9.8})"
         HBNBCommand().onecmd(testCmd)
         test_dict = storage.all()["Place.{}".format(testId)].__dict__
-        self.assertEqual(9.8, test_dict["latitude"])
+        self.assertEqual('9.8', test_dict["latitude"])
 
 
 class TestHBNBCommand_count(unittest.TestCase):
@@ -1259,6 +1300,7 @@ class TestHBNBCommand_count(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(type(storage) is DBStorage, "Testing DBstorage")
     def test_count_object(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))

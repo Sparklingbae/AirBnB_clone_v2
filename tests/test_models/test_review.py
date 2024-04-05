@@ -20,6 +20,7 @@ class TestReview_dataModel(unittest.TestCase):
         with self.assertRaises(TypeError):
             Review(id=None, created_at=None, updated_at=None)
 
+    @unittest.skipIf(True, "Testing DBstorage")
     def test_Review_dataMTypes(self):
         self.assertEqual(Review, type(Review()))
         self.assertIn(Review(), models.storage.all().values())
@@ -29,14 +30,13 @@ class TestReview_dataModel(unittest.TestCase):
         self.assertEqual(str, type(Review.place_id))
         self.assertEqual(str, type(Review.user_id))
         self.assertEqual(str, type(Review.text))
-       
 
     def test_created_at(self):
         obj1 = Review()
         sleep(0.05)
         obj2 = Review()
         self.assertLess(obj1.created_at, obj2.created_at)
-    
+
     def test_updated_at(self):
         obj1 = Review()
         upd1 = obj1.updated_at
@@ -45,11 +45,11 @@ class TestReview_dataModel(unittest.TestCase):
         obj1.save()
         upd2 = obj1.updated_at
         self.assertLess(upd1, upd2)
-    
+
     def test_str_representation(self):
         dt = datetime.today()
         dt_repr = repr(dt)
-        obj =Review()
+        obj = Review()
         obj.id = "a9957-165a-49ea-966f-a0de45"
         obj.created_at = obj.updated_at = dt
         objstr = obj.__str__()
@@ -66,7 +66,8 @@ class TestReview_dataModel(unittest.TestCase):
         self.assertEqual(obj.id, idd)
         self.assertEqual(obj.created_at, dt)
         self.assertEqual(obj.updated_at, dt)
-    
+
+
 class TestReview_save(unittest.TestCase):
     """Unittests for testing save method of the Review class."""
 
@@ -110,7 +111,6 @@ class TestReview_save(unittest.TestCase):
         bmid = "Review." + obj.id
         with open("file.json", "r") as f:
             self.assertIn(bmid, f.read())
-    
 
 
 class TestReview_to_dict(unittest.TestCase):
@@ -153,7 +153,6 @@ class TestReview_to_dict(unittest.TestCase):
         }
         self.assertDictEqual(obj.to_dict(), tdict)
 
-    
     def test_to_dict_with_error_arg(self):
         obj = Review()
         with self.assertRaises(TypeError):

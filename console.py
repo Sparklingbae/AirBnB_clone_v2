@@ -9,7 +9,7 @@ from models.city import City
 from models.review import Review
 from models.place import Place
 from models.amenity import Amenity
-from models import storage
+from models import storage, DBStorage
 import shlex
 import re
 
@@ -253,14 +253,16 @@ class HBNBCommand(Cmd):
         for chk in chks:
             is_valid_arg = chk()
         if is_valid_arg:
-            obj = eval(class_nm[0])()
+            cls = eval(class_nm[0])
+            c_arg = {}
             if len(class_nm) > 1:
                 chk = self.__console_utility('class_attr',
                                              class_nm, pre_attri)
                 is_valid_arg = chk[0](class_nm[1:])
             if "attributes" in pre_attri:
                 for att in pre_attri["attributes"]:
-                    setattr(obj, att[0], att[1])
+                    c_arg.update({att[0]: att[1]})
+            obj = cls(**c_arg)
             obj.save()
             print(obj.id)
 

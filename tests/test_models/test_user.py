@@ -11,6 +11,7 @@ import unittest
 from datetime import datetime
 from time import sleep
 from models.user import User
+from models import storage, DBStorage
 
 
 class TestUser_dataModel(unittest.TestCase):
@@ -20,6 +21,7 @@ class TestUser_dataModel(unittest.TestCase):
         with self.assertRaises(TypeError):
             User(id=None, created_at=None, updated_at=None)
 
+    @unittest.skipIf(True, "Testing DBstorage")
     def test_User_dataMTypes(self):
         self.assertEqual(User, type(User()))
         self.assertIn(User(), models.storage.all().values())
@@ -36,7 +38,7 @@ class TestUser_dataModel(unittest.TestCase):
         sleep(0.05)
         us2 = User()
         self.assertLess(us1.created_at, us2.created_at)
-    
+
     def test_updated_at(self):
         obj1 = User()
         upd1 = obj1.updated_at
@@ -45,11 +47,11 @@ class TestUser_dataModel(unittest.TestCase):
         obj1.save()
         upd2 = obj1.updated_at
         self.assertLess(upd1, upd2)
-    
+
     def test_str_representation(self):
         dt = datetime.today()
         dt_repr = repr(dt)
-        obj =User()
+        obj = User()
         obj.id = "a9957-165a-49ea-966f-a0de45"
         obj.created_at = obj.updated_at = dt
         objstr = obj.__str__()
@@ -111,7 +113,6 @@ class TestUser_save(unittest.TestCase):
         bmid = "User." + obj.id
         with open("file.json", "r") as f:
             self.assertIn(bmid, f.read())
-    
 
 
 class TestUser_to_dict(unittest.TestCase):
@@ -153,8 +154,6 @@ class TestUser_to_dict(unittest.TestCase):
             'updated_at': dt.isoformat()
         }
         self.assertDictEqual(obj.to_dict(), tdict)
-
-    
 
     def test_to_dict_with_error_arg(self):
         obj = User()

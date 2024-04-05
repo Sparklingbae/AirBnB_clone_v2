@@ -41,9 +41,7 @@ class BaseModel:
         """Update updated_at with the current datetime."""
 
         self.updated_at = datetime.utcnow()
-        key = f"{self.__class__.__name__}.{self.id}"
-        if key not in [*models.storage.all()]:
-            models.storage.new(self)
+        models.storage.new(self)
         models.storage.save()
 
     def to_dict(self) -> dict:
