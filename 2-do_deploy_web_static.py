@@ -5,6 +5,7 @@ from os import path
 
 env.hosts = ["52.207.151.26", "100.26.216.19"]
 
+
 def do_deploy(archive_path):
     """Fabric script that distributes
     an archive to your web server"""
@@ -24,7 +25,8 @@ def do_deploy(archive_path):
         run("sudo rm /tmp/{}".format(tgzfile))
         run("sudo mv /data/web_static/releases/{}/web_static/*\
             /data/web_static/releases/{}/".format(filename, filename))
-        run("sudo rm -rf /data/web_static/releases/{}/web_static".format(filename))
+        run("sudo rm -rf /data/web_static/releases/{}/web_static"
+            .format(filename))
         run("sudo rm -rf /data/web_static/current")
         run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
             .format(filename))
