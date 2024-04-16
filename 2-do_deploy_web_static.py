@@ -4,7 +4,10 @@ from os import path
 
 
 env.hosts = ["52.207.151.26", "100.26.216.19"]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 269d8a698cb06f6ea210a64a6cb45e29bff40434
 
 def do_deploy(archive_path):
     """Fabric script that distributes
