@@ -9,11 +9,13 @@ def do_pack():
 
     filename = strftime("%Y%m%d%H%M%S")
     try:
-        local("mkdir -p versions")
-        local("tar -czvf versions/web_static_{}.tgz web_static/"
+        local("sudo mkdir -p versions")
+        local("sudo tar -czvf versions/web_static_{}.tgz web_static/"
               .format(filename))
-
-        return "versions/web_static_{}.tgz".format(filename)
+        if result.succeeded:
+            return "versions/web_static_{}.tgz".format(filename)
+        else:
+            return None
 
     except Exception as e:
         return None
