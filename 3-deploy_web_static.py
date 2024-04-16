@@ -13,8 +13,8 @@ def do_pack():
 
     filename = strftime("%Y%m%d%H%M%S")
     try:
-        local("sudo mkdir -p versions")
-        local("sudo tar -czvf versions/web_static_{}.tgz web_static/"
+        local("mkdir -p versions")
+        local("tar -czvf versions/web_static_{}.tgz web_static/"
               .format(filename))
 
         return "versions/web_static_{}.tgz".format(filename)
@@ -36,15 +36,15 @@ def do_deploy(archive_path):
         print(filename)
         pathname = "/data/web_static/releases/" + filename
         put(archive_path, '/tmp/')
-        run("sudo mkdir -p /data/web_static/releases/{}/".format(filename))
-        run("sudo tar -zxvf /tmp/{} -C /data/web_static/releases/{}/"
+        run("mkdir -p /data/web_static/releases/{}/".format(filename))
+        run("tar -zxvf /tmp/{} -C /data/web_static/releases/{}/"
             .format(tgzfile, filename))
-        run("sudo rm /tmp/{}".format(tgzfile))
-        run("sudo mv /data/web_static/releases/{}/web_static/*\
+        run("rm /tmp/{}".format(tgzfile))
+        run("mv /data/web_static/releases/{}/web_static/*\
             /data/web_static/releases/{}/".format(filename, filename))
-        run("sudo rm -rf /data/web_static/releases/{}/web_static".format(filename))
-        run("sudo rm -rf /data/web_static/current")
-        run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
+        run("rm -rf /data/web_static/releases/{}/web_static".format(filename))
+        run("rm -rf /data/web_static/current")
+        run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
             .format(filename))
         return True
     except Exception as e:
