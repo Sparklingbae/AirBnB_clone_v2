@@ -5,7 +5,7 @@ from datetime import date
 from os import path
 
 
-env.hosts = ["18.235.233.45", "100.25.160.122"]
+env.hosts = ["52.207.151.26", "100.26.216.19"]
 
 def do_pack():
     """ A script that generates archive the contents of web_static folder"""
