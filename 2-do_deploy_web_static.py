@@ -3,11 +3,7 @@ from fabric.api import put, run, local, env
 from os import path
 
 
-<<<<<<< HEAD
-env.hosts = ["54.144.156.108", "54.84.62.16"]
-=======
-env.hosts = ["18.235.233.45", "100.25.160.122"]
->>>>>>> 457b054fff60216218c98c013416902f25227d91
+env.hosts = ["52.207.151.26", "100.26.216.19"]
 
 
 def do_deploy(archive_path):
@@ -23,15 +19,16 @@ def do_deploy(archive_path):
         print(filename)
         pathname = "/data/web_static/releases/" + filename
         put(archive_path, '/tmp/')
-        run("mkdir -p /data/web_static/releases/{}/".format(filename))
-        run("tar -zxvf /tmp/{} -C /data/web_static/releases/{}/"
+        run("sudo mkdir -p /data/web_static/releases/{}/".format(filename))
+        run("sudo tar -zxvf /tmp/{} -C /data/web_static/releases/{}/"
             .format(tgzfile, filename))
-        run("rm /tmp/{}".format(tgzfile))
-        run("mv /data/web_static/releases/{}/web_static/*\
+        run("sudo rm /tmp/{}".format(tgzfile))
+        run("sudo mv /data/web_static/releases/{}/web_static/*\
             /data/web_static/releases/{}/".format(filename, filename))
-        run("rm -rf /data/web_static/releases/{}/web_static".format(filename))
-        run("rm -rf /data/web_static/current")
-        run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
+        run("sudo rm -rf /data/web_static/releases/{}/web_static"
+            .format(filename))
+        run("sudo rm -rf /data/web_static/current")
+        run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
             .format(filename))
         return True
     except Exception as e:
