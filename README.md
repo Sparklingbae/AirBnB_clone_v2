@@ -125,7 +125,6 @@ $ python3 unittest -m tests/<test_file>
 
 ## Authors 🖋
 __Abiodun Aremu__ ~ HucksApp@gmail.com :
-__Blessing Asuquo__ ~ Sparklingasuquo4142@gmail.com : 
 
 
 
