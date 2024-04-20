@@ -19,9 +19,10 @@ def do_clean(number=0):
     number = 1 if int(number) == 0 else int(number)
 
     archives = sorted(os.listdir("versions"))
-    [archives.pop() for i in range(number)]
-    with lcd("versions"):
-        [local("sudo rm ./{}".format(a)) for a in archives]
+    if len(archives) >= number:
+        [archives.pop() for i in range(number)]
+        with lcd("versions"):
+            [local("sudo rm ./{}".format(a)) for a in archives]
 
     with cd("/data/web_static/releases"):
         archives = run("sudo ls -tr").split()
