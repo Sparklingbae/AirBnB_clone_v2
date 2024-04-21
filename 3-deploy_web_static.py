@@ -4,7 +4,7 @@ from time import strftime
 from datetime import date
 from os import path
 
-env.hosts = ["52.207.151.26", "100.26.216.19"]
+env.hosts = ["52.207.151.26", "100.26.210.179"]
 
 
 def do_pack():
