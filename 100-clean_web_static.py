@@ -4,6 +4,7 @@ import os
 from fabric.api import *
 
 env.hosts = ["52.207.151.26", "100.26.210.179"]
+env.user = 'ubuntu'
 
 
 def do_clean(number=0):
@@ -16,7 +17,9 @@ def do_clean(number=0):
     number is 2, keeps the most and second-most recent archives,
     etc.
     """
-    number = 1 if int(number) == 0 else int(number)
+    number = int(number)
+    if number == 0:
+        number = 2
 
     archives = sorted(os.listdir("versions"))
     if len(archives) >= number:
