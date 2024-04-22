@@ -18,8 +18,8 @@ def do_clean(number=0):
     etc.
     """
     number = int(number)
-    if number == 0:
-        number = 2
+    if number in [0, 1]:
+        number = 1
 
     archives = sorted(os.listdir("versions"))
     if len(archives) >= number:
