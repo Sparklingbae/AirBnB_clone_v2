@@ -3,7 +3,9 @@
 import os
 from fabric.api import *
 
-env.hosts = ["52.207.151.26", "100.26.216.19"]
+env.hosts = ["52.207.151.26", "100.26.210.179"]
+env.user = 'ubuntu'
+
 
 def do_clean(number=0):
     """Delete out-of-date archives.
@@ -15,15 +17,18 @@ def do_clean(number=0):
     number is 2, keeps the most and second-most recent archives,
     etc.
     """
-    number = 1 if int(number) == 0 else int(number)
+    number = int(number)
+    if number in [0, 1]:
+        number = 1
 
     archives = sorted(os.listdir("versions"))
-    [archives.pop() for i in range(number)]
-    with lcd("versions"):
-        [local("rm ./{}".format(a)) for a in archives]
-
-    with cd("/data/web_static/releases"):
-        archives = run("ls -tr").split()
-        archives = [a for a in archives if "web_static_" in a]
+    if len(archives) > number:
         [archives.pop() for i in range(number)]
-        [run("rm -rf ./{}".format(a)) for a in archives]
+        with lcd("versions"):
+            [local("sudo rm ./{}".format(a)) for a in archives]
+
+        with cd("/data/web_static/releases"):
+            archives = run("sudo ls -tr").split()
+            archives = [a for a in archives if "web_static_" in a]
+            [archives.pop() for i in range(number)]
+            [run("sudo rm -rf ./{}".format(a)) for a in archives]
