@@ -77,5 +77,7 @@ class DBStorage:
         self.__session = Session()
 
     def close(self):
-        """Method that closes the session"""
+        """Close the working SQLAIchemy session"""
         self.__session.close()
+
+
